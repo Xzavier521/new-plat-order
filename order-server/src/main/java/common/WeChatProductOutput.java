@@ -11,6 +11,9 @@ import java.util.Date;
  */
 @Data
 public class WeChatProductOutput {
+    public void maia(){
+        System.out.println("ssssssssssss");
+    }
     private String id;//主键
 
     private Integer enterpriseid;//企业ID
