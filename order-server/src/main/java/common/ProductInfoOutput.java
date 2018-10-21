@@ -11,6 +11,10 @@ import java.math.BigDecimal;
 @Data
 public class ProductInfoOutput {
 
+    public void sss(){
+
+    }
+
     private String productId;
 
     /** 名字. */
