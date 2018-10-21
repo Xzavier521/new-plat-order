@@ -15,16 +15,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public static void main(String[] args) {
 
-    }
     @Override
     public int addUser(User user) {
         return userMapper.insert(user);
     }
     public PageInfo<User> pageSelect(int page, int pageSize) {
-        //打印ccccc
-        System.out.println("sscccccc");
+
         //pageHelper帮我们生成分页语句
         PageHelper.startPage(page,pageSize);
         List<User> findlist = userMapper.queryAll();
