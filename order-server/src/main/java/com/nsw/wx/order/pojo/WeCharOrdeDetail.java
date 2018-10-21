@@ -41,7 +41,7 @@ public class WeCharOrdeDetail {
 
     private Date inputtime; //输入时间
 
-    private String orderid; //订单ID
+    private int orderid; //订单ID
 
     private Integer integral; //积分
 

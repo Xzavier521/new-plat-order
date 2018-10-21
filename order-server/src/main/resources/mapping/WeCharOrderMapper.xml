@@ -144,7 +144,7 @@
       #{defaultfreight,jdbcType=DECIMAL})
   </insert>
 
-    <select id="finaAll" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
+    <select id="findList" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
    select * from tbWeCharOrder
   </select>
 
@@ -407,7 +407,8 @@
         where OrderNo = #{orderno}
     </update>
 
-
-
+    <update id="updateOrderStatus"  parameterType="com.nsw.wx.order.pojo.WeCharOrder" >
+    UPDATE tbWeCharOrder SET orderstate = #{orderstate} WHERE id= #{id}
+  </update>
 
 </mapper>

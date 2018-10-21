@@ -26,7 +26,10 @@ public class WeCharOrder {
     private BigDecimal actualprice; //实际价格
 
     private String coupons; //优惠券
-
+    /**(0, "新订单"),
+   (1, "完结"),
+    (2, "取消"),
+   */
     private Integer orderstate; //订单状态
 
     private Integer paystate;   //支付状态
@@ -172,7 +175,5 @@ public class WeCharOrder {
     private BigDecimal membershipconsumption;   //会员消费
 
     private BigDecimal couponpreferential;  //优惠券优惠
-
     private BigDecimal defaultfreight;  //默认的运费
-
 }

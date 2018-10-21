@@ -5,12 +5,13 @@ package com.nsw.wx.order.mapper;
 import com.nsw.wx.order.pojo.WeCharOrder;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface WeCharOrderMapper {
     /**
      * @return list
      */
-    List<WeCharOrder> finaAll();
+    List<WeCharOrder> findList();
 
     /**
      *
@@ -31,13 +32,17 @@ public interface WeCharOrderMapper {
      * @param id
      * @return
      */
-    WeCharOrder finaAllByid(int id);
+   WeCharOrder finaAllByid(int id);
 
     /**
      * 通过订单编号修改订单的状态
-     * @param weCharOrder
+     * @param
      * @return int
      */
     int updateByPrimary(WeCharOrder weCharOrder);
+
+    int updateOrderStatus(WeCharOrder weCharOrder);
+
+
 
 }

@@ -16,7 +16,7 @@
     <result column="AttributeKeyValue" property="attributekeyvalue" jdbcType="VARCHAR" />
     <result column="Enable" property="enable" jdbcType="BIT" />
     <result column="InputTime" property="inputtime" jdbcType="TIMESTAMP" />
-    <result column="OrderID" property="orderid" jdbcType="INTEGER" />
+    <result column="OrderID" property="orderid" jdbcType="VARCHAR" />
     <result column="Integral" property="integral" jdbcType="INTEGER" />
     <result column="CartType" property="carttype" jdbcType="VARCHAR" />
     <result column="SkuID" property="skuid" jdbcType="INTEGER" />
@@ -128,4 +128,8 @@
     where OID = #{OID,jdbcType=VARCHAR}
   </delete>
 
+
+  <select id="findByOrderno" parameterType="String" resultMap="BaseResultMap">
+    select * from tbWeCharOrdeDetail where oid = #{orderno}
+  </select>
 </mapper>

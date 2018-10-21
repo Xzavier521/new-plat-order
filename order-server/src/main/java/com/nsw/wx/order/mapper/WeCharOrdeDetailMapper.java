@@ -3,8 +3,10 @@ package com.nsw.wx.order.mapper;
 
 
 import com.nsw.wx.order.pojo.WeCharOrdeDetail;
+import jdk.nashorn.internal.runtime.options.Option;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface WeCharOrdeDetailMapper {
     /**
@@ -36,5 +38,16 @@ public interface WeCharOrdeDetailMapper {
      * @return int
      */
     int updateByPrimaryOid(WeCharOrdeDetail order);
+
+    /**
+     * 查询订单详情
+     * @param orderno
+     * @return
+     */
+    List<WeCharOrdeDetail> findByOrderno(String orderno);
+
+
+
+
 
 }
