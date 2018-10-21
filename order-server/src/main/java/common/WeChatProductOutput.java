@@ -11,7 +11,10 @@ import java.util.Date;
  */
 @Data
 public class WeChatProductOutput {
-
+    //打印sssss
+    public void mai(){
+        System.out.println("sssssssss");
+    }
 
     private String id;//主键
 
