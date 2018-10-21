@@ -14,6 +14,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    public static void main(String[] args) {
+
+    }
     @Override
     public int addUser(User user) {
         return userMapper.insert(user);
