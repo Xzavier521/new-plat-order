@@ -11,8 +11,8 @@ import java.util.Date;
  */
 @Data
 public class WeChatProductOutput {
-    public void maia(){
-        System.out.println("ssssssssssss");
+    public static void main(String[] args) {
+
     }
     private String id;//主键
 
