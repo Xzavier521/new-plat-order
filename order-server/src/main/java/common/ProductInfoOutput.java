@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 @Data
 public class ProductInfoOutput {
 
+
+
     private String productId;
 
     /** 名字. */

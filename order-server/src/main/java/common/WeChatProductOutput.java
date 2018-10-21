@@ -11,6 +11,8 @@ import java.util.Date;
  */
 @Data
 public class WeChatProductOutput {
+
+
     private String id;//主键
 
     private Integer enterpriseid;//企业ID
