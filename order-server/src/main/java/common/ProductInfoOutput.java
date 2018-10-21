@@ -11,10 +11,7 @@ import java.math.BigDecimal;
 @Data
 public class ProductInfoOutput {
 
-    //打印aaa
-    public void main(){
-        System.out.println("aaaaa");
-    }
+
 
     private String productId;
 
