@@ -10,8 +10,7 @@ import com.nsw.wx.order.exception.OrderException;
 import com.nsw.wx.order.form.OrderForm;
 import com.nsw.wx.order.pojo.WeCharOrder;
 import com.nsw.wx.order.server.BuyerOrderService;
-import com.nsw.wx.order.server.SellerOrderService;
-import com.nsw.wx.order.util.ResultVOUtil;
+import com.nsw.wx.order.VO.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -26,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 每家订单
+ * 买家订单
  *
  * @author 张维维
  * date: 2018/10/23/023 15:13
@@ -37,7 +36,6 @@ import java.util.Map;
 public class BuyerOrderController {
     @Autowired
     private BuyerOrderService buyerOrderService;
-
     /**
      * 1. 参数检验
      * 2. 查询商品信息(调用商品服务)
@@ -55,18 +53,18 @@ public class BuyerOrderController {
                     bindingResult.getFieldError().getDefaultMessage());
         }
         OrderDTO orderDTO = OrderForm2OrderDTOConverter.convert(orderForm);
+        System.out.println("openid:"+orderDTO.getOpenid()+"-------------");
         if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("【创建订单】购物车信息为空");
             throw new OrderException(ResultEnum.CART_EMPTY);
         }
 
         OrderDTO result = buyerOrderService.create(orderDTO);
+
         Map<String, String> map = new HashMap<>();
         map.put("orderId", result.getOrderno());
         return ResultVOUtil.success(map);
-
     }
-
     /**
      * 查询订单列表
      * @param response
@@ -75,7 +73,7 @@ public class BuyerOrderController {
      * @return
      */
     @GetMapping("/list")
-    public Object list(HttpServletResponse response, @RequestParam(value = "page") Integer page,
+    public ResultVO list(HttpServletResponse response, @RequestParam(value = "page") Integer page,
                        @RequestParam(value = "limit") Integer limit,
                        @RequestParam(value = "openid") String openid) {
         response.setHeader("Access-Control-Allow-Origin", "*");     if (StringUtils.isEmpty(openid)) {
@@ -85,22 +83,19 @@ public class BuyerOrderController {
         PageInfo<WeCharOrder> pageInfoList = buyerOrderService.buyerfindList(openid,page, limit);
         long count=pageInfoList.getTotal();
         List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(pageInfoList.getList());
-
         return ResultVOUtil.success(orderDTOList,count);
     }
-
     //订单详情
     @GetMapping("/detail")
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId) {
-       return  null;
+       return ResultVOUtil.success(buyerOrderService.findOne(openid, orderId));
     }
-
     //取消订单
     @PostMapping("/cancel")
     public ResultVO cancel(@RequestParam("openid") String openid,
                            @RequestParam("orderId") String orderId) {
-       buyerOrderService.cancel(openid, orderId);
+       buyerOrderService.cancel(orderId,openid);
         return ResultVOUtil.success();
     }
 }

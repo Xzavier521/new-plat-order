@@ -1,5 +1,4 @@
-
-package com.nsw.wx.order.util;
+package com.nsw.wx.order.VO;
 
 import com.nsw.wx.order.VO.ResultVO;
 

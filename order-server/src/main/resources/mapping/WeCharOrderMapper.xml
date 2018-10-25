@@ -114,7 +114,7 @@
       GroupBuyingType, GroupBuyingDiscount, GroupBuyStatus,
       IsGroupBuying, ReceiptType, Deposit,
       ReturnNumber, MembershipConsumption, CouponPreferential,
-      DefaultFreight)
+      DefaultFreight,openid)
     values (#{enterpriseid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
       #{orderno,jdbcType=VARCHAR}, #{total,jdbcType=DECIMAL}, #{actualprice,jdbcType=DECIMAL},
       #{coupons,jdbcType=VARCHAR}, #{orderstate,jdbcType=INTEGER}, #{paystate,jdbcType=INTEGER},
@@ -142,25 +142,23 @@
       #{groupbuyingtype,jdbcType=INTEGER}, #{groupbuyingdiscount,jdbcType=DECIMAL}, #{groupbuystatus,jdbcType=INTEGER},
       #{isgroupbuying,jdbcType=INTEGER}, #{receipttype,jdbcType=INTEGER}, #{deposit,jdbcType=DECIMAL},
       #{returnnumber,jdbcType=VARCHAR}, #{membershipconsumption,jdbcType=DECIMAL}, #{couponpreferential,jdbcType=DECIMAL},
-      #{defaultfreight,jdbcType=DECIMAL})
+      #{defaultfreight,jdbcType=DECIMAL},#{openid})
   </insert>
 
     <select id="findList" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
-   select  * from tbWeCharOrder
+   select orderno,fullname,mphone,address,total,orderstate,paystate from tbWeCharOrder
   </select>
 
     <select id="BuyerfindList" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
-   select id,orderno,fullname,mphone,address,total,orderstate,paystate from tbWeCharOrder and openid = #{openid}
+   select orderno,fullname,mphone,address,total,orderstate,paystate from tbWeCharOrder and openid = #{openid}
   </select>
 
     <select id="finaAllByid" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
    select * from tbWeCharOrder where id=#{id}
   </select>
     <select id="BuyerFinaAllByid" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
-   select * from tbWeCharOrder where id=#{id} and openid = #{openid}
+   select * from tbWeCharOrder where id=#{orderId} and openid = #{openid}
   </select>
-
-
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tbWeCharOrder

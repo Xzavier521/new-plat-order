@@ -41,7 +41,7 @@ public interface WeCharOrderMapper {
      */
    WeCharOrder finaAllByid(@Param("id") int id);
 
-   WeCharOrder BuyerFinaAllByid(@Param("id") int id,@Param("openid") String openid);
+   WeCharOrder BuyerFinaAllByid(@Param("orderId") int orderId,@Param("openid") String openid);
 
     /**
      * 通过订单编号修改订单的状态

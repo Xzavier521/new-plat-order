@@ -42,7 +42,7 @@
 //        //储存到redis中
 //        for (WeChatProductOutput weChatProductOutput:weChatProductOutputList){
 //            stringRedisTemplate.opsForValue().set(String.format(PRODUCT_STOCK_TEMPLATE,weChatProductOutput.getId()),
-//                    String.valueOf(weChatProductOutput.getStock()));
+//            String.valueOf(weChatProductOutput.getStock()));
 //        }
 //    }
 //

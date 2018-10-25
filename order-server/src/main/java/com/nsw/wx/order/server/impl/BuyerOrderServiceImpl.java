@@ -3,6 +3,7 @@ package com.nsw.wx.order.server.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nsw.wx.order.controller.ProductClient;
+import com.nsw.wx.order.converter.OrderMaster2OrderDTOConverter;
 import com.nsw.wx.order.dto.OrderDTO;
 import com.nsw.wx.order.enums.OrderStatusEnum;
 import com.nsw.wx.order.enums.ResultEnum;
@@ -12,6 +13,7 @@ import com.nsw.wx.order.mapper.WeCharOrderMapper;
 import com.nsw.wx.order.pojo.WeCharOrdeDetail;
 import com.nsw.wx.order.pojo.WeCharOrder;
 import com.nsw.wx.order.server.BuyerOrderService;
+import com.nsw.wx.order.server.WebSocket;
 import com.nsw.wx.order.util.KeyUtil;
 import common.DecreaseStockInput;
 import common.WeChatProductOutput;
@@ -35,6 +37,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class BuyerOrderServiceImpl implements BuyerOrderService {
+    @Autowired
+    private WebSocket webSocket;
     @Autowired
     private WeCharOrdeDetailMapper weCharOrdeDetailMapper;
     @Autowired
@@ -64,8 +68,8 @@ public class BuyerOrderServiceImpl implements BuyerOrderService {
                     orderAmout = productInfo.getPrice()
                             .multiply(new BigDecimal(weCharOrdeDetail.getNum()));
                     weCharOrdeDetail.setUserprice(orderAmout);
+                    System.out.println("productInfo"+productInfo.getOrderid());
                     BeanUtils.copyProperties(productInfo, weCharOrdeDetail);
-                    System.out.println("===="+weCharOrdeDetail);
                     weCharOrdeDetail.setOid(orderId);
                     weCharOrdeDetail.setProductname(productInfo.getTitle());
                     weCharOrdeDetail.setProductprice(productInfo.getPrice());
@@ -98,10 +102,12 @@ public class BuyerOrderServiceImpl implements BuyerOrderService {
         WeCharOrder orderMaster = new WeCharOrder();
         orderDTO.setOrderno(orderId);
         BeanUtils.copyProperties(orderDTO, orderMaster);
+        System.out.println(orderDTO.getOpenid()+"=========="+orderMaster.getOpenid());
         orderMaster.setInvoicetime(new Date());
         orderMaster.setOrderno(orderId);
         orderMaster.setTotal(orderAmoutSum);
         weCharOrderMapper.insert(orderMaster);
+        webSocket.sendMessage(orderDTO.getOrderno());
         return orderDTO;
     }
 
@@ -118,9 +124,7 @@ public class BuyerOrderServiceImpl implements BuyerOrderService {
         List<WeCharOrder> findlist = weCharOrderMapper.BuyerfindList(buyerOpenid);
         PageInfo<WeCharOrder> pageInfoUserList =  new PageInfo<WeCharOrder>(findlist);
         return pageInfoUserList;
-
     }
-
     /**
      * 详情
      * @param buyeropenid
@@ -128,7 +132,7 @@ public class BuyerOrderServiceImpl implements BuyerOrderService {
      * @return
      */
     @Override
-    public List<WeCharOrdeDetail> findOne(String buyeropenid, String orderId) {
+    public OrderDTO findOne(String buyeropenid, String orderId) {
         WeCharOrder weCharOrder = weCharOrderMapper.BuyerFinaAllByid(Integer.parseInt(orderId),buyeropenid);
         if (weCharOrder ==null){
             throw  new OrderException(ResultEnum.CART_EMPTY.ORDER_NOT_EXIST);
@@ -138,8 +142,9 @@ public class BuyerOrderServiceImpl implements BuyerOrderService {
         if(CollectionUtils.isEmpty(weCharOrdeDetails)){
             throw new OrderException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
         }
-
-        return weCharOrdeDetails;
+        OrderDTO orderDTO =  new OrderDTO();
+        orderDTO.setOrderDetailList(weCharOrdeDetails);
+        return orderDTO;
     }
 
     /**
@@ -148,13 +153,17 @@ public class BuyerOrderServiceImpl implements BuyerOrderService {
      * @return
      */
     @Override
-    public Object cancel(String orderId,String openid) {
+    public OrderDTO cancel(String orderId,String openid) {
+        System.out.println(orderId+"-------"+openid);
         WeCharOrder weCharOrder = weCharOrderMapper.BuyerFinaAllByid(Integer.parseInt(orderId),openid);
         if(weCharOrder==null){
             throw  new OrderException(ResultEnum.CART_EMPTY.ORDER_NOT_EXIST);
         }
-        weCharOrder.setOrdertype(OrderStatusEnum.DCANCEL.getCode());
-        int count = weCharOrderMapper.updateOrderStatus(weCharOrder);
-        return count;
+
+        weCharOrder.setOrderstate(OrderStatusEnum.DCANCEL.getCode());
+        weCharOrderMapper.updateByPrimary(weCharOrder);
+        System.out.println(weCharOrder.getOrderstate());
+        OrderDTO orderDTO = OrderMaster2OrderDTOConverter.convert(weCharOrder);
+        return orderDTO;
     }
 }

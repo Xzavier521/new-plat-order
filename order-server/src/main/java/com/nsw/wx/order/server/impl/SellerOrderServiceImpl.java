@@ -41,7 +41,8 @@ public class SellerOrderServiceImpl implements SellerOrderService {
 private WeCharOrdeDetailMapper weCharOrdeDetailMapper;
 @Autowired
 private WeCharOrderMapper weCharOrderMapper;
-
+@Autowired
+private ProductClient productClient;
 
     @Override
     public OrderDTO finish(String orderId) {
@@ -77,7 +78,6 @@ private WeCharOrderMapper weCharOrderMapper;
         }
         //查看订单详情
         List<WeCharOrdeDetail> weCharOrdeDetails = weCharOrdeDetailMapper.findByOrderno(weCharOrder.getOrderno());
-        System.out.println("-----"+weCharOrdeDetails);
         if(CollectionUtils.isEmpty(weCharOrdeDetails)){
             throw new OrderException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
         }
@@ -97,6 +97,7 @@ private WeCharOrderMapper weCharOrderMapper;
     }
 
     @Override
+    @Transactional
     public Object cancel(String orderId) {
         //查询订单
         //判断订单状态
@@ -109,21 +110,21 @@ private WeCharOrderMapper weCharOrderMapper;
             throw  new OrderException(ResultEnum.CART_EMPTY.ORDER_NOT_EXIST);
         }
         //判断订单转态
-        System.out.println("============查询通过");
-        System.out.println("==============="+weCharOrder.getOrderstate());
-        System.out.println("===================="+OrderStatusEnum.NEW.getCode());
+
         if (!weCharOrder.getOrderstate().equals(OrderStatusEnum.DCANCEL.getCode())) {
             throw  new OrderException(ResultEnum.ORDER_STATUS_ERROR);
         }
         //修改订单状态
-        System.out.println("++++++++++++++++++++++++"+OrderStatusEnum.CANCEL.getCode());
         weCharOrder.setOrderstate(OrderStatusEnum.CANCEL.getCode());
-        System.out.println("++++++++++++++++++++++++"+weCharOrder);
-      int count =   weCharOrderMapper.updateOrderStatus(weCharOrder);
-        //TODO 调用商品加库存方法
+
+        int count =   weCharOrderMapper.updateOrderStatus(weCharOrder);
+
         System.out.println("调用商品加库存........");
-        //TODO 调用退款方法
-        System.out.println("调用退款方法......");
+        List<WeCharOrdeDetail> weCharOrdeDetails = weCharOrdeDetailMapper.findByOrderno(weCharOrder.getOrderno());
+        List<DecreaseStockInput> decreaseStockInputList = weCharOrdeDetails.stream()
+                .map(e -> new DecreaseStockInput(e.getProductid(), e.getNum()))
+                .collect(Collectors.toList());
+        productClient.addStock(decreaseStockInputList);
         return count;
     }
 

@@ -18,6 +18,11 @@ spring:
                   port: 5672
                   username: guest
                   password: guest
+    redis:
+        database: 0
+        host: 127.0.0.1
+        port: 6379
+        timeout: 2000
 #    cloud:
 #        config:
 #          discovery:
@@ -31,4 +36,4 @@ mybatis:
   mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.nsw.wx.product.pojo
 server:
-  port: 9081 # 注意：对应实体类的路径
+  port: 9085 # 注意：对应实体类的路径

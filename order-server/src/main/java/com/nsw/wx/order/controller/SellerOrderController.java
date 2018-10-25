@@ -4,11 +4,13 @@ import com.github.pagehelper.PageInfo;
 import com.nsw.wx.order.VO.ResultVO;
 import com.nsw.wx.order.converter.OrderMaster2OrderDTOConverter;
 import com.nsw.wx.order.dto.OrderDTO;
+import com.nsw.wx.order.enums.ResultEnum;
+import com.nsw.wx.order.exception.OrderException;
 import com.nsw.wx.order.pojo.WeCharOrdeDetail;
 import com.nsw.wx.order.pojo.WeCharOrder;
 import com.nsw.wx.order.server.SellerOrderService;
 import com.nsw.wx.order.util.JsonData;
-import com.nsw.wx.order.util.ResultVOUtil;
+import com.nsw.wx.order.VO.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +49,11 @@ public class SellerOrderController {
     @PostMapping("/finish")
     public ResultVO<OrderDTO> finish(
                 @RequestParam("orderId") String orderId) {
-        return ResultVOUtil.success(orderService.finish(orderId));
+       OrderDTO orderDTO = orderService.finish(orderId);
+       if (orderDTO ==null){
+           throw  new OrderException(ResultEnum.ORDER_END);
+       }
+        return ResultVOUtil.success();
     }
 
     //订单列表
@@ -63,7 +69,7 @@ public class SellerOrderController {
     }
 
     //订单详情
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public Object detail(@RequestParam("orderId") String orderId) {
 
       List <WeCharOrdeDetail> weCharOrdeDetailList = orderService.findOne( orderId);
@@ -71,9 +77,9 @@ public class SellerOrderController {
 
     }
     //取消订单
-    @GetMapping("/cancel")
-    public ResultVO cancel(@RequestParam("orderId") String orderId,HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    @PostMapping("/cancel")
+    public ResultVO cancel(@RequestParam("orderId") String orderId) {
+
         int count = (int) orderService.cancel(orderId);
         return ResultVOUtil.success();
     }

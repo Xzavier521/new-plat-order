@@ -15,11 +15,26 @@ import java.util.List;
  */
 @FeignClient(name = "PRODUCT-SERVICE")
 public interface ProductClient {
-
+    /**
+     * 查询商品信息
+     * @param productIdList
+     * @return
+     */
     @PostMapping("/api/product/listForOrder")
     List<WeChatProductOutput> listForOrder(@RequestBody List<String> productIdList);
 
+    /**
+     * 减库存
+     * @param decreaseStockInputList
+     */
     @PostMapping("/api/product/decreaseStock")
     void decreaseStock(@RequestBody List<DecreaseStockInput> decreaseStockInputList);
+
+    /**
+     * 加库存
+     * @param decreaseStockInputList
+     */
+    @PostMapping("/api/product/addStock")
+    void addStock(@RequestBody List<DecreaseStockInput> decreaseStockInputList);
 
 }
