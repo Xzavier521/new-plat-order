@@ -2,15 +2,16 @@ package common;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 张德丑
+ * 张维维
  * 2018-10-19 9:13
  */
 @Data
-public class WeChatProductOutput {
+public class WeChatProductOutput implements Serializable {
 
 
     private String id;//主键

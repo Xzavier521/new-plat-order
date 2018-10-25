@@ -3,6 +3,7 @@ package com.nsw.wx.order.mapper;
 
 
 import com.nsw.wx.order.pojo.WeCharOrder;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,12 @@ public interface WeCharOrderMapper {
      */
     List<WeCharOrder> findList();
 
+    /**
+     * 买家订单列表
+     * @param openid
+     * @return
+     */
+    List<WeCharOrder> BuyerfindList(String openid);
     /**
      *
      * @param record
@@ -32,7 +39,9 @@ public interface WeCharOrderMapper {
      * @param id
      * @return
      */
-   WeCharOrder finaAllByid(int id);
+   WeCharOrder finaAllByid(@Param("id") int id);
+
+   WeCharOrder BuyerFinaAllByid(@Param("orderId") int orderId,@Param("openid") String openid);
 
     /**
      * 通过订单编号修改订单的状态
@@ -41,8 +50,12 @@ public interface WeCharOrderMapper {
      */
     int updateByPrimary(WeCharOrder weCharOrder);
 
+    /**
+     * 取消取消订单
+     * @param weCharOrder
+     * @return
+     */
     int updateOrderStatus(WeCharOrder weCharOrder);
-
 
 
 }
