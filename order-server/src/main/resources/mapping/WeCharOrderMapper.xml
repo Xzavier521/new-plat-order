@@ -42,6 +42,7 @@
         <result column="Freight" jdbcType="DECIMAL" property="freight"/>
         <result column="CompanyName" jdbcType="VARCHAR" property="companyname"/>
         <result column="LogisticsNo" jdbcType="VARCHAR" property="logisticsno"/>
+        <result column="Openid" jdbcType="VARCHAR" property="openid"/>
         <result column="LogisticsID" jdbcType="INTEGER" property="logisticsid"/>
         <result column="LogisticsJosn" jdbcType="VARCHAR" property="logisticsjosn"/>
         <result column="LogisticsTime" jdbcType="TIMESTAMP" property="logisticstime"/>
@@ -145,12 +146,21 @@
   </insert>
 
     <select id="findList" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
-   select * from tbWeCharOrder
+   select  * from tbWeCharOrder
+  </select>
+
+    <select id="BuyerfindList" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
+   select id,orderno,fullname,mphone,address,total,orderstate,paystate from tbWeCharOrder and openid = #{openid}
   </select>
 
     <select id="finaAllByid" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
    select * from tbWeCharOrder where id=#{id}
   </select>
+    <select id="BuyerFinaAllByid" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
+   select * from tbWeCharOrder where id=#{id} and openid = #{openid}
+  </select>
+
+
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tbWeCharOrder

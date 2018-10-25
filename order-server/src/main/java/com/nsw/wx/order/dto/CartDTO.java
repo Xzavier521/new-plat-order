@@ -1,10 +1,10 @@
-package com.nsw.wx.order.com.nsw.wx.order.dto;
+package com.nsw.wx.order.dto;
 
 import lombok.Data;
 
 /**
- * Created by 廖师兄
- * 2017-12-10 22:36
+ * 张维维
+ * 2018-10-22 22:36
  */
 @Data
 public class CartDTO {

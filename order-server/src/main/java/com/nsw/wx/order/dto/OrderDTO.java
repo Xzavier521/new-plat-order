@@ -1,24 +1,25 @@
-package com.nsw.wx.order.pojo;
+package com.nsw.wx.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nsw.wx.order.enums.DeliverystateEnum;
 import com.nsw.wx.order.enums.OrderStatusEnum;
 import com.nsw.wx.order.enums.PayStatusEnum;
+import com.nsw.wx.order.pojo.WeCharOrdeDetail;
+import com.nsw.wx.order.util.Date2LongSerializer;
 import com.nsw.wx.order.util.EnumUtil;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-@Getter
-@Setter
 /**
- * 订单
- * 张维维
+ 张维维
  */
-@ToString
-public class WeCharOrder {
+@Data
+public class OrderDTO {
+
     private Integer id; //ID
 
     private Integer enterpriseid; //企业ID
@@ -33,22 +34,23 @@ public class WeCharOrder {
 
     private String coupons; //优惠券
     /**(0, "新订单"),
-   (1, "完结"),
-    (2, "取消"),
-   */
-    private Integer orderstate; //订单状态
+     (1, "完结"),
+     (2, "取消"),
+     */
+    private Integer orderstate = OrderStatusEnum.NEW.getCode(); //订单状态默认新订单
 
-    private Integer paystate;   //支付状态
+    private Integer paystate = PayStatusEnum.WAIT.getCode();   //支付状态默认待支付
 
-    private Integer deliverystate;  //交货状态
+    private Integer deliverystate = DeliverystateEnum.NEW.getCode();  //交货状态
 
-    private String fullname;    //全名
+    private String fullname;//全名
+    private String openid = "test";
 
-    private String phone;   //电话
+    private String phone = "10086";   //电话
 
     private String mphone;  //手机
 
-    private String zipcode; //邮政编码
+    private String zipcode = "888"; //邮政编码
 
     private Integer deductpoint;    //扣点
 
@@ -56,7 +58,7 @@ public class WeCharOrder {
 
     private BigDecimal discountamount;  //折扣金额
 
-    private String country; //国家
+    private String country = "中国"; //国家
 
     private String province;    //省
 
@@ -153,7 +155,6 @@ public class WeCharOrder {
     private String interfacedata;   //接口数据
 
     private Integer groupid;    //团体ID
-    private  String openid;
 
     private Integer initiator;  //发起者
 
@@ -184,22 +185,24 @@ public class WeCharOrder {
     private BigDecimal couponpreferential;  //优惠券优惠
     private BigDecimal defaultfreight;  //默认的运费
 
+    /** 支付状态, 默认为0未支付. */
+//    private Integer paystate;
+    /** 创建时间. */
+    @JsonSerialize(using = Date2LongSerializer.class)
+    private Date createTime;
+
+    /** 更新时间. */
+    @JsonSerialize(using = Date2LongSerializer.class)
+    private Date updateTime;
+
+    private List<WeCharOrdeDetail> orderDetailList;
     @JsonIgnore
     public OrderStatusEnum getOrderStatusEnum() {
-        return EnumUtil.getByCode(orderstate, OrderStatusEnum.class);
+        return EnumUtil.getByCode(orderid, OrderStatusEnum.class);
     }
 
     @JsonIgnore
     public PayStatusEnum getPayStatusEnum() {
-        return EnumUtil.getByCode(paystate, PayStatusEnum.class);
+        return EnumUtil.getByCode( paystate, PayStatusEnum.class);
     }
-
-    public  WeCharOrder(String orderno,String fullname,String mphone){
-        orderno = this.orderno;
-        fullname = this.fullname;
-        mphone = this.mphone;
-
-    }
-
-    public  WeCharOrder(){}
 }

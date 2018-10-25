@@ -2,7 +2,7 @@ package com.nsw.wx.order.converter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.nsw.wx.order.com.nsw.wx.order.dto.OrderDTO;
+import com.nsw.wx.order.dto.OrderDTO;
 import com.nsw.wx.order.enums.ResultEnum;
 import com.nsw.wx.order.exception.OrderException;
 import com.nsw.wx.order.form.OrderForm;
@@ -22,10 +22,10 @@ public class OrderForm2OrderDTOConverter {
     public static OrderDTO convert(OrderForm orderForm) {
         Gson gson = new Gson();
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setBuyerName(orderForm.getName());
-        orderDTO.setBuyerPhone(orderForm.getPhone());
-        orderDTO.setBuyerAddress(orderForm.getAddress());
-        orderDTO.setBuyerOpenid(orderForm.getOpenid());
+        orderDTO.setFullname(orderForm.getName());
+        orderDTO.setMphone(orderForm.getPhone());
+        orderDTO.setAddress(orderForm.getAddress());
+        orderDTO.setOpenid(orderForm.getOpenid());
         System.out.println("orderDTO"+orderDTO);
 
 
