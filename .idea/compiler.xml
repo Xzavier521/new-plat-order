@@ -12,5 +12,11 @@
         <module name="order-server" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="nsw-wx-product" target="1.8" />
+      <module name="product-client" target="1.8" />
+      <module name="product-common" target="1.8" />
+      <module name="product-server" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
