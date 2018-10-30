@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nsw.wx.order.mapper.WeCharOrderMapper">
+    <resultMap id="BaseResultMap" type="com.nsw.wx.order.pojo.WeCharOrder">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="EnterpriseID" jdbcType="INTEGER" property="enterpriseid"/>
+        <result column="UserID" jdbcType="INTEGER" property="userid"/>
+        <result column="OrderNo" jdbcType="VARCHAR" property="orderno"/>
+        <result column="Total" jdbcType="DECIMAL" property="total"/>
+        <result column="ActualPrice" jdbcType="DECIMAL" property="actualprice"/>
+        <result column="Coupons" jdbcType="VARCHAR" property="coupons"/>
+        <result column="OrderState" jdbcType="INTEGER" property="orderstate"/>
+        <result column="PayState" jdbcType="INTEGER" property="paystate"/>
+        <result column="DeliveryState" jdbcType="INTEGER" property="deliverystate"/>
+        <result column="FullName" jdbcType="VARCHAR" property="fullname"/>
+        <result column="Phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="MPhone" jdbcType="VARCHAR" property="mphone"/>
+        <result column="ZipCode" jdbcType="VARCHAR" property="zipcode"/>
+        <result column="DeductPoint" jdbcType="INTEGER" property="deductpoint"/>
+        <result column="ReturnPoint" jdbcType="INTEGER" property="returnpoint"/>
+        <result column="DiscountAmount" jdbcType="DECIMAL" property="discountamount"/>
+        <result column="Country" jdbcType="VARCHAR" property="country"/>
+        <result column="Province" jdbcType="VARCHAR" property="province"/>
+        <result column="City" jdbcType="VARCHAR" property="city"/>
+        <result column="Address" jdbcType="VARCHAR" property="address"/>
+        <result column="UserRemark" jdbcType="VARCHAR" property="userremark"/>
+        <result column="AdminRemark" jdbcType="VARCHAR" property="adminremark"/>
+        <result column="isLock" jdbcType="BIT" property="islock"/>
+        <result column="Enable" jdbcType="BIT" property="enable"/>
+        <result column="InputTime" jdbcType="TIMESTAMP" property="inputtime"/>
+        <result column="OrderID" jdbcType="INTEGER" property="orderid"/>
+        <result column="Payments" jdbcType="VARCHAR" property="payments"/>
+        <result column="Region" jdbcType="VARCHAR" property="region"/>
+        <result column="isDelete" jdbcType="BIT" property="isdelete"/>
+        <result column="DiscountRemarks" jdbcType="VARCHAR" property="discountremarks"/>
+        <result column="Invoice" jdbcType="VARCHAR" property="invoice"/>
+        <result column="InvoiceNo" jdbcType="VARCHAR" property="invoiceno"/>
+        <result column="OtherField01" jdbcType="VARCHAR" property="otherfield01"/>
+        <result column="OtherField02" jdbcType="VARCHAR" property="otherfield02"/>
+        <result column="IsCheck" jdbcType="BIT" property="ischeck"/>
+        <result column="CheckDesc" jdbcType="VARCHAR" property="checkdesc"/>
+        <result column="Freight" jdbcType="DECIMAL" property="freight"/>
+        <result column="CompanyName" jdbcType="VARCHAR" property="companyname"/>
+        <result column="LogisticsNo" jdbcType="VARCHAR" property="logisticsno"/>
+        <result column="LogisticsID" jdbcType="INTEGER" property="logisticsid"/>
+        <result column="LogisticsJosn" jdbcType="VARCHAR" property="logisticsjosn"/>
+        <result column="LogisticsTime" jdbcType="TIMESTAMP" property="logisticstime"/>
+        <result column="SourceUserid" jdbcType="INTEGER" property="sourceuserid"/>
+        <result column="InvoiceType" jdbcType="INTEGER" property="invoicetype"/>
+        <result column="InvoiceTel" jdbcType="VARCHAR" property="invoicetel"/>
+        <result column="InvoiceAddress" jdbcType="VARCHAR" property="invoiceaddress"/>
+        <result column="InvoiceContact" jdbcType="VARCHAR" property="invoicecontact"/>
+        <result column="InvoiceRegisterTel" jdbcType="VARCHAR" property="invoiceregistertel"/>
+        <result column="InvoiceRegisterAddress" jdbcType="VARCHAR" property="invoiceregisteraddress"/>
+        <result column="InvoiceBankName" jdbcType="VARCHAR" property="invoicebankname"/>
+        <result column="InvoiceBankAccount" jdbcType="VARCHAR" property="invoicebankaccount"/>
+        <result column="InvoiceNumber" jdbcType="VARCHAR" property="invoicenumber"/>
+        <result column="InvoiceRemark" jdbcType="VARCHAR" property="invoiceremark"/>
+        <result column="Result" jdbcType="INTEGER" property="result"/>
+        <result column="ResultUsers" jdbcType="VARCHAR" property="resultusers"/>
+        <result column="ChildEnterpriseID" jdbcType="INTEGER" property="childenterpriseid"/>
+        <result column="DeliveryTime" jdbcType="TIMESTAMP" property="deliverytime"/>
+        <result column="InvoiceTime" jdbcType="TIMESTAMP" property="invoicetime"/>
+        <result column="PaymentProofs" jdbcType="VARCHAR" property="paymentproofs"/>
+        <result column="PaymentMethod" jdbcType="VARCHAR" property="paymentmethod"/>
+        <result column="NoteDescription" jdbcType="VARCHAR" property="notedescription"/>
+        <result column="PaymentTime" jdbcType="TIMESTAMP" property="paymenttime"/>
+        <result column="OrderType" jdbcType="INTEGER" property="ordertype"/>
+        <result column="InterfaceData" jdbcType="NVARCHAR" property="interfacedata"/>
+        <result column="GroupID" jdbcType="INTEGER" property="groupid"/>
+        <result column="Initiator" jdbcType="INTEGER" property="initiator"/>
+        <result column="Amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="IsPayment" jdbcType="INTEGER" property="ispayment"/>
+        <result column="DeductibleAmount" jdbcType="DECIMAL" property="deductibleamount"/>
+        <result column="GroupBuyingRecordID" jdbcType="INTEGER" property="groupbuyingrecordid"/>
+        <result column="GroupBuyingType" jdbcType="INTEGER" property="groupbuyingtype"/>
+        <result column="GroupBuyingDiscount" jdbcType="DECIMAL" property="groupbuyingdiscount"/>
+        <result column="GroupBuyStatus" jdbcType="INTEGER" property="groupbuystatus"/>
+        <result column="IsGroupBuying" jdbcType="INTEGER" property="isgroupbuying"/>
+        <result column="ReceiptType" jdbcType="INTEGER" property="receipttype"/>
+        <result column="Deposit" jdbcType="DECIMAL" property="deposit"/>
+        <result column="ReturnNumber" jdbcType="VARCHAR" property="returnnumber"/>
+        <result column="MembershipConsumption" jdbcType="DECIMAL" property="membershipconsumption"/>
+        <result column="CouponPreferential" jdbcType="DECIMAL" property="couponpreferential"/>
+        <result column="DefaultFreight" jdbcType="DECIMAL" property="defaultfreight"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.nsw.wx.order.pojo.WeCharOrder">
+    insert into tbWeCharOrder (EnterpriseID, UserID,
+      OrderNo, Total, ActualPrice,
+      Coupons, OrderState, PayState,
+      DeliveryState, FullName, Phone,
+      MPhone, ZipCode, DeductPoint,
+      ReturnPoint, DiscountAmount, Country,
+      Province, City, Address,
+      UserRemark, AdminRemark, isLock,
+      Enable, InputTime, OrderID,
+      Payments, Region, isDelete,
+      DiscountRemarks, Invoice, InvoiceNo,
+      OtherField01, OtherField02, IsCheck,
+      CheckDesc, Freight, CompanyName,
+      LogisticsNo, LogisticsID, LogisticsJosn,
+      LogisticsTime, SourceUserid, InvoiceType,
+      InvoiceTel, InvoiceAddress, InvoiceContact,
+      InvoiceRegisterTel, InvoiceRegisterAddress,
+      InvoiceBankName, InvoiceBankAccount, InvoiceNumber,
+      InvoiceRemark, Result, ResultUsers,
+      ChildEnterpriseID, DeliveryTime, InvoiceTime,
+      PaymentProofs, PaymentMethod, NoteDescription,
+      PaymentTime, OrderType, InterfaceData,
+      GroupID, Initiator, Amount,
+      IsPayment, DeductibleAmount, GroupBuyingRecordID,
+      GroupBuyingType, GroupBuyingDiscount, GroupBuyStatus,
+      IsGroupBuying, ReceiptType, Deposit,
+      ReturnNumber, MembershipConsumption, CouponPreferential,
+      DefaultFreight)
+    values (#{enterpriseid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
+      #{orderno,jdbcType=VARCHAR}, #{total,jdbcType=DECIMAL}, #{actualprice,jdbcType=DECIMAL},
+      #{coupons,jdbcType=VARCHAR}, #{orderstate,jdbcType=INTEGER}, #{paystate,jdbcType=INTEGER},
+      #{deliverystate,jdbcType=INTEGER}, #{fullname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+      #{mphone,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, #{deductpoint,jdbcType=INTEGER},
+      #{returnpoint,jdbcType=INTEGER}, #{discountamount,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR},
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+      #{userremark,jdbcType=VARCHAR}, #{adminremark,jdbcType=VARCHAR}, #{islock,jdbcType=BIT},
+      #{enable,jdbcType=BIT}, #{inputtime,jdbcType=TIMESTAMP}, #{orderid,jdbcType=INTEGER},
+      #{payments,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{isdelete,jdbcType=BIT},
+      #{discountremarks,jdbcType=VARCHAR}, #{invoice,jdbcType=VARCHAR}, #{invoiceno,jdbcType=VARCHAR},
+      #{otherfield01,jdbcType=VARCHAR}, #{otherfield02,jdbcType=VARCHAR}, #{ischeck,jdbcType=BIT},
+      #{checkdesc,jdbcType=VARCHAR}, #{freight,jdbcType=DECIMAL}, #{companyname,jdbcType=VARCHAR},
+      #{logisticsno,jdbcType=VARCHAR}, #{logisticsid,jdbcType=INTEGER}, #{logisticsjosn,jdbcType=VARCHAR},
+      #{logisticstime,jdbcType=TIMESTAMP}, #{sourceuserid,jdbcType=INTEGER}, #{invoicetype,jdbcType=INTEGER},
+      #{invoicetel,jdbcType=VARCHAR}, #{invoiceaddress,jdbcType=VARCHAR}, #{invoicecontact,jdbcType=VARCHAR},
+      #{invoiceregistertel,jdbcType=VARCHAR}, #{invoiceregisteraddress,jdbcType=VARCHAR},
+      #{invoicebankname,jdbcType=VARCHAR}, #{invoicebankaccount,jdbcType=VARCHAR}, #{invoicenumber,jdbcType=VARCHAR},
+      #{invoiceremark,jdbcType=VARCHAR}, #{result,jdbcType=INTEGER}, #{resultusers,jdbcType=VARCHAR},
+      #{childenterpriseid,jdbcType=INTEGER}, #{deliverytime,jdbcType=TIMESTAMP}, #{invoicetime,jdbcType=TIMESTAMP},
+      #{paymentproofs,jdbcType=VARCHAR}, #{paymentmethod,jdbcType=VARCHAR}, #{notedescription,jdbcType=VARCHAR},
+      #{paymenttime,jdbcType=TIMESTAMP}, #{ordertype,jdbcType=INTEGER}, #{interfacedata,jdbcType=NVARCHAR},
+      #{groupid,jdbcType=INTEGER}, #{initiator,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL},
+      #{ispayment,jdbcType=INTEGER}, #{deductibleamount,jdbcType=DECIMAL}, #{groupbuyingrecordid,jdbcType=INTEGER},
+      #{groupbuyingtype,jdbcType=INTEGER}, #{groupbuyingdiscount,jdbcType=DECIMAL}, #{groupbuystatus,jdbcType=INTEGER},
+      #{isgroupbuying,jdbcType=INTEGER}, #{receipttype,jdbcType=INTEGER}, #{deposit,jdbcType=DECIMAL},
+      #{returnnumber,jdbcType=VARCHAR}, #{membershipconsumption,jdbcType=DECIMAL}, #{couponpreferential,jdbcType=DECIMAL},
+      #{defaultfreight,jdbcType=DECIMAL})
+  </insert>
+
+    <select id="finaAll" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
+   select * from tbWeCharOrder
+  </select>
+
+    <select id="finaAllByid" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
+   select * from tbWeCharOrder where id=#{id}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbWeCharOrder
+    where OrderNo = #{orderNo,jdbcType=VARCHAR}
+  </delete>
+
+    <!--<update id="updateStatus" parameterType="java.lang.String">-->
+    <!--update tbWeCharOrder set OrderState=#{OrderState},PayState=#{PayState},DeliveryState=#{DeliveryState},-->
+    <!--isDelete=#{isDelete},IsPayment=#{IsPayment},GroupBuyStatus=#{GroupBuyStatus}-->
+    <!--where OrderNo=#{OrderNo};-->
+    <!--</update>-->
+
+    <update id="updateByPrimary" parameterType="com.nsw.wx.order.pojo.WeCharOrder">
+        update tbWeCharOrder
+        <set>
+            <if test="enterpriseid != null">
+                EnterpriseID = #{enterpriseid,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null">
+                UserID = #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="total != null">
+                Total = #{total,jdbcType=DECIMAL},
+            </if>
+            <if test="actualprice != null">
+                ActualPrice = #{actualprice,jdbcType=DECIMAL},
+            </if>
+            <if test="coupons != null">
+                Coupons = #{coupons,jdbcType=VARCHAR},
+            </if>
+            <if test="orderstate != null">
+                OrderState = #{orderstate,jdbcType=INTEGER},
+            </if>
+            <if test="paystate != null">
+                PayState = #{paystate,jdbcType=INTEGER},
+            </if>
+            <if test="deliverystate != null">
+                DeliveryState = #{deliverystate,jdbcType=INTEGER},
+            </if>
+            <if test="fullname != null">
+                FullName = #{fullname,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                Phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="mphone != null">
+                MPhone = #{mphone,jdbcType=VARCHAR},
+            </if>
+            <if test="zipcode != null">
+                ZipCode = #{zipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="deductpoint != null">
+                DeductPoint = #{deductpoint,jdbcType=INTEGER},
+            </if>
+            <if test="returnpoint != null">
+                ReturnPoint = #{returnpoint,jdbcType=INTEGER},
+            </if>
+            <if test="discountamount != null">
+                DiscountAmount = #{discountamount,jdbcType=DECIMAL},
+            </if>
+            <if test="country != null">
+                Country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                Province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                City = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                Address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="userremark != null">
+                UserRemark = #{userremark,jdbcType=VARCHAR},
+            </if>
+            <if test="adminremark != null">
+                AdminRemark = #{adminremark,jdbcType=VARCHAR},
+            </if>
+            <if test="islock != null">
+                isLock = #{islock,jdbcType=BIT},
+            </if>
+            <if test="enable != null">
+                Enable = #{enable,jdbcType=BIT},
+            </if>
+            <if test="inputtime != null">
+                InputTime = #{inputtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderid != null">
+                OrderID = #{orderid,jdbcType=INTEGER},
+            </if>
+            <if test="payments != null">
+                Payments = #{payments,jdbcType=VARCHAR},
+            </if>
+            <if test="region != null">
+                Region = #{region,jdbcType=VARCHAR},
+            </if>
+            <if test="isdelete != null">
+                isDelete = #{isdelete,jdbcType=BIT},
+            </if>
+            <if test="discountremarks != null">
+                DiscountRemarks = #{discountremarks,jdbcType=VARCHAR},
+            </if>
+            <if test="invoice != null">
+                Invoice = #{invoice,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceno != null">
+                InvoiceNo = #{invoiceno,jdbcType=VARCHAR},
+            </if>
+            <if test="otherfield01 != null">
+                OtherField01 = #{otherfield01,jdbcType=VARCHAR},
+            </if>
+            <if test="otherfield02 != null">
+                OtherField02 = #{otherfield02,jdbcType=VARCHAR},
+            </if>
+            <if test="ischeck != null">
+                IsCheck = #{ischeck,jdbcType=BIT},
+            </if>
+            <if test="checkdesc != null">
+                CheckDesc = #{checkdesc,jdbcType=VARCHAR},
+            </if>
+            <if test="freight != null">
+                Freight = #{freight,jdbcType=DECIMAL},
+            </if>
+            <if test="companyname != null">
+                CompanyName = #{companyname,jdbcType=VARCHAR},
+            </if>
+            <if test="logisticsno != null">
+                LogisticsNo = #{logisticsno,jdbcType=VARCHAR},
+            </if>
+            <if test="logisticsid != null">
+                LogisticsID = #{logisticsid,jdbcType=INTEGER},
+            </if>
+            <if test="logisticsjosn != null">
+                LogisticsJosn = #{logisticsjosn,jdbcType=VARCHAR},
+            </if>
+            <if test="logisticstime != null">
+                LogisticsTime = #{logisticstime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sourceuserid != null">
+                SourceUserid = #{sourceuserid,jdbcType=INTEGER},
+            </if>
+            <if test="invoicetype != null">
+                InvoiceType = #{invoicetype,jdbcType=INTEGER},
+            </if>
+            <if test="invoicetel != null">
+                InvoiceTel = #{invoicetel,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceaddress != null">
+                InvoiceAddress = #{invoiceaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="invoicecontact != null">
+                InvoiceContact = #{invoicecontact,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceregistertel != null">
+                InvoiceRegisterTel = #{invoiceregistertel,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceregisteraddress != null">
+                InvoiceRegisterAddress = #{invoiceregisteraddress,jdbcType=VARCHAR},
+            </if>
+            <if test="invoicebankname != null">
+                InvoiceBankName = #{invoicebankname,jdbcType=VARCHAR},
+            </if>
+            <if test="invoicebankaccount != null">
+                InvoiceBankAccount = #{invoicebankaccount,jdbcType=VARCHAR},
+            </if>
+            <if test="invoicenumber != null">
+                InvoiceNumber = #{invoicenumber,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceremark != null">
+                InvoiceRemark = #{invoiceremark,jdbcType=VARCHAR},
+            </if>
+            <if test="result != null">
+                Result = #{result,jdbcType=INTEGER},
+            </if>
+            <if test="resultusers != null">
+                ResultUsers = #{resultusers,jdbcType=VARCHAR},
+            </if>
+            <if test="childenterpriseid != null">
+                ChildEnterpriseID = #{childenterpriseid,jdbcType=INTEGER},
+            </if>
+            <if test="deliverytime != null">
+                DeliveryTime = #{deliverytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoicetime != null">
+                InvoiceTime = #{invoicetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="paymentproofs != null">
+                PaymentProofs = #{paymentproofs,jdbcType=VARCHAR},
+            </if>
+            <if test="paymentmethod != null">
+                PaymentMethod = #{paymentmethod,jdbcType=VARCHAR},
+            </if>
+            <if test="notedescription != null">
+                NoteDescription = #{notedescription,jdbcType=VARCHAR},
+            </if>
+            <if test="paymenttime != null">
+                PaymentTime = #{paymenttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ordertype != null">
+                OrderType = #{ordertype,jdbcType=INTEGER},
+            </if>
+            <if test="interfacedata != null">
+                InterfaceData = #{interfacedata,jdbcType=NVARCHAR},
+            </if>
+            <if test="groupid != null">
+                GroupID = #{groupid,jdbcType=INTEGER},
+            </if>
+            <if test="initiator != null">
+                Initiator = #{initiator,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                Amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="ispayment != null">
+                IsPayment = #{ispayment,jdbcType=INTEGER},
+            </if>
+            <if test="deductibleamount != null">
+                DeductibleAmount = #{deductibleamount,jdbcType=DECIMAL},
+            </if>
+            <if test="groupbuyingrecordid != null">
+                GroupBuyingRecordID = #{groupbuyingrecordid,jdbcType=INTEGER},
+            </if>
+            <if test="groupbuyingtype != null">
+                GroupBuyingType = #{groupbuyingtype,jdbcType=INTEGER},
+            </if>
+            <if test="groupbuyingdiscount != null">
+                GroupBuyingDiscount = #{groupbuyingdiscount,jdbcType=DECIMAL},
+            </if>
+            <if test="groupbuystatus != null">
+                GroupBuyStatus = #{groupbuystatus,jdbcType=INTEGER},
+            </if>
+            <if test="isgroupbuying != null">
+                IsGroupBuying = #{isgroupbuying,jdbcType=INTEGER},
+            </if>
+            <if test="receipttype != null">
+                ReceiptType = #{receipttype,jdbcType=INTEGER},
+            </if>
+            <if test="deposit != null">
+                Deposit = #{deposit,jdbcType=DECIMAL},
+            </if>
+            <if test="returnnumber != null">
+                ReturnNumber = #{returnnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="membershipconsumption != null">
+                MembershipConsumption = #{membershipconsumption,jdbcType=DECIMAL},
+            </if>
+            <if test="couponpreferential != null">
+                CouponPreferential = #{couponpreferential,jdbcType=DECIMAL},
+            </if>
+            <if test="defaultfreight != null">
+                DefaultFreight = #{defaultfreight,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where OrderNo = #{orderno}
+    </update>
+
+    <select id="orderdetailuserid" resultMap="BaseResultMap" parameterType="com.nsw.wx.order.pojo.WeCharOrder" >
+       select * from tbWeCharOrder where
+       <if test="userid !=null">
+        UserID=#{userid}
+       </if>
+    </select>
+
+</mapper>
