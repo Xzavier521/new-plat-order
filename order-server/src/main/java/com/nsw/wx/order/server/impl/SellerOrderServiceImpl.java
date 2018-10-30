@@ -119,7 +119,7 @@ private ProductClient productClient;
 
         int count =   weCharOrderMapper.updateOrderStatus(weCharOrder);
 
-        System.out.println("调用商品加库存........");
+        System.out.println("++++++++++++++++++"+weCharOrder.getId());
         List<WeCharOrdeDetail> weCharOrdeDetails = weCharOrdeDetailMapper.findByOrderno(weCharOrder.getOrderno());
         List<DecreaseStockInput> decreaseStockInputList = weCharOrdeDetails.stream()
                 .map(e -> new DecreaseStockInput(e.getProductid(), e.getNum()))

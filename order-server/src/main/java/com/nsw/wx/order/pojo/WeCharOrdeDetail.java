@@ -1,9 +1,11 @@
 package com.nsw.wx.order.pojo;
 
+import com.sun.xml.internal.ws.developer.Serialization;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,7 +14,7 @@ import java.util.Date;
  * 订单详情
  */
 @Data
-public class WeCharOrdeDetail {
+public class WeCharOrdeDetail implements Serializable {
     private Integer id; //ID
 
     private Integer userid; //用户ID
@@ -61,5 +63,4 @@ public class WeCharOrdeDetail {
 
     private Integer status; //状态
 
-    WeCharOrder order = new WeCharOrder();
 }

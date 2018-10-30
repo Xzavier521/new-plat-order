@@ -53,7 +53,6 @@ public class BuyerOrderController {
                     bindingResult.getFieldError().getDefaultMessage());
         }
         OrderDTO orderDTO = OrderForm2OrderDTOConverter.convert(orderForm);
-        System.out.println("openid:"+orderDTO.getOpenid()+"-------------");
         if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("【创建订单】购物车信息为空");
             throw new OrderException(ResultEnum.CART_EMPTY);

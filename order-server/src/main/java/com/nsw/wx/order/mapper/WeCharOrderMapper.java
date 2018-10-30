@@ -56,6 +56,11 @@ public interface WeCharOrderMapper {
      * @return
      */
     int updateOrderStatus(WeCharOrder weCharOrder);
+/**修改订单状态
+ *
+ *
+ */
 
+int updateOrderSta(WeCharOrder weCharOrder);
 
 }

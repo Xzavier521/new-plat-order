@@ -146,7 +146,7 @@
   </insert>
 
     <select id="findList" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
-   select orderno,fullname,mphone,address,total,orderstate,paystate from tbWeCharOrder
+   select * from tbWeCharOrder
   </select>
 
     <select id="BuyerfindList" parameterType="com.nsw.wx.order.pojo.WeCharOrder" resultMap="BaseResultMap">
@@ -419,4 +419,8 @@
     UPDATE tbWeCharOrder SET orderstate = #{orderstate} WHERE id= #{id}
   </update>
 
+    <update id ="updateOrderSta" parameterType="com.nsw.wx.order.pojo.WeCharOrder">
+    update tbWeCharOrder
+        SET OrderState = #{orderstate} where OrderNo = #{orderno}
+    </update>
 </mapper>

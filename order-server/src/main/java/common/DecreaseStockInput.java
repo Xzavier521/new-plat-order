@@ -2,6 +2,8 @@ package common;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 购物车
  *
@@ -13,18 +15,18 @@ import lombok.Data;
  * To change this template use File | Settings | File Templates.
  */
     @Data
-    public class DecreaseStockInput {
+    public class DecreaseStockInput  implements Serializable {
 
         private String productId;
 
-        private Integer productQuantity;
+        private Integer num;
 
         public DecreaseStockInput() {
         }
 
-        public DecreaseStockInput(String productId, Integer productQuantity) {
+        public DecreaseStockInput(String productId, Integer num) {
             this.productId = productId;
-            this.productQuantity = productQuantity;
+            this.num = num;
         }
 
 }

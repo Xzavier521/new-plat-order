@@ -10,21 +10,31 @@ import com.nsw.wx.order.enums.ResultEnum;
 import com.nsw.wx.order.exception.OrderException;
 import com.nsw.wx.order.mapper.WeCharOrdeDetailMapper;
 import com.nsw.wx.order.mapper.WeCharOrderMapper;
+import com.nsw.wx.order.message.*;
 import com.nsw.wx.order.pojo.WeCharOrdeDetail;
 import com.nsw.wx.order.pojo.WeCharOrder;
+import com.nsw.wx.order.rabbitmq.MQConfig;
+import com.nsw.wx.order.redis.RedisLock;
+import com.nsw.wx.order.redis.RedisService;
+import com.nsw.wx.order.redis.WeChatProductOutputKey;
 import com.nsw.wx.order.server.BuyerOrderService;
 import com.nsw.wx.order.server.WebSocket;
+import com.nsw.wx.order.util.FastJsonConvertUtil;
+import com.nsw.wx.order.util.JsonUtil;
 import com.nsw.wx.order.util.KeyUtil;
 import common.DecreaseStockInput;
 import common.WeChatProductOutput;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,6 +48,12 @@ import java.util.stream.Collectors;
 @Service
 public class BuyerOrderServiceImpl implements BuyerOrderService {
     @Autowired
+    private  RabbitOrderSender rabbitOrderSender;
+    @Autowired
+    private OrderSender orderSender;
+    @Autowired
+    RedisService redisService;
+    @Autowired
     private WebSocket webSocket;
     @Autowired
     private WeCharOrdeDetailMapper weCharOrdeDetailMapper;
@@ -45,30 +61,48 @@ public class BuyerOrderServiceImpl implements BuyerOrderService {
     private WeCharOrderMapper weCharOrderMapper;
     @Autowired
     private ProductClient productClient;
+    @Autowired
+    private RedisLock redisLock;
+    private static  final  int TIMEOUT=1*1000;//超时时间1s
+    private AmqpTemplate amqpTemplate;
     @Transactional
-    public OrderDTO create(OrderDTO orderDTO) {
+    public  OrderDTO create(OrderDTO orderDTO) {
 
-        String orderId = KeyUtil.genUniqueKey();
-        //查询商品信息(调用商品服务) 获取商品信息
-        List<String> productIdList = orderDTO.getOrderDetailList().stream()
-                .map(WeCharOrdeDetail::getProductid)
-                .collect(Collectors.toList());
-        //得到商品信息
-        System.out.println();
-        List<WeChatProductOutput> productInfoList = productClient.listForOrder(productIdList);
-        System.out.println("---------------"+productInfoList);
-        //计算总价
+        String  orderId = KeyUtil.genUniqueKey();
+        List<WeChatProductOutput> productInfoList = new ArrayList<>();
+        long time = System.currentTimeMillis()+TIMEOUT;
+        //加锁
+
+        //得到商品的ID
+        for (WeCharOrdeDetail weCharOrdeDetail: orderDTO.getOrderDetailList()) {
+            System.out.println("来吧+"+redisService.get(WeChatProductOutputKey.getById,""+weCharOrdeDetail.getProductid()));
+            WeChatProductOutput weChatProductOutput = redisService.get(WeChatProductOutputKey.getById, "" + weCharOrdeDetail.getProductid(), WeChatProductOutput.class);
+//            if (!redisLock.lock(redisService.get(WeChatProductOutputKey.getById,""+weCharOrdeDetail.getProductid()),String.valueOf(time))) {
+//                throw new OrderException(ResultEnum.TOO_MANY_PROPLE);
+//            }
+                if (weChatProductOutput.getStock() < 0) {
+                    throw new OrderException(ResultEnum.PEODUCT_STOCK_EMPTY);
+                }
+                weChatProductOutput.setStock(weChatProductOutput.getStock() - weCharOrdeDetail.getNum());
+                redisService.set(WeChatProductOutputKey.getById, "" + weChatProductOutput.getId(), weChatProductOutput);
+                productInfoList.add(weChatProductOutput);
+//            redisLock.unlock(redisService.get(WeChatProductOutputKey.getById,""+weCharOrdeDetail.getProductid()),String.valueOf(time));
+        }
+
+
+
         BigDecimal orderAmout = new BigDecimal(BigInteger.ZERO);
         BigDecimal orderAmoutSum = new BigDecimal(BigInteger.ZERO);
-         //订单商品入库
+        //订单商品入库
         for (WeCharOrdeDetail weCharOrdeDetail: orderDTO.getOrderDetailList()) {
             for (WeChatProductOutput productInfo: productInfoList) {
                 if (productInfo.getId().equals(weCharOrdeDetail.getProductid())) {
                     //单价*数量
+                    System.out.println();
                     orderAmout = productInfo.getPrice()
                             .multiply(new BigDecimal(weCharOrdeDetail.getNum()));
                     weCharOrdeDetail.setUserprice(orderAmout);
-                    System.out.println("productInfo"+productInfo.getOrderid());
+
                     BeanUtils.copyProperties(productInfo, weCharOrdeDetail);
                     weCharOrdeDetail.setOid(orderId);
                     weCharOrdeDetail.setProductname(productInfo.getTitle());
@@ -84,33 +118,40 @@ public class BuyerOrderServiceImpl implements BuyerOrderService {
                     weCharOrdeDetail.setDeposit(aDouble);
                     weCharOrdeDetail.setRent(aDouble);
                     weCharOrdeDetail.setDay(320);
-                    weCharOrdeDetail.setStatus(1212);
+                    weCharOrdeDetail.setStatus(OrderStatusEnum.DFINISHED.getCode());
                     weCharOrdeDetail.setUserid(12);
                     orderAmoutSum =  orderAmoutSum.add(orderAmout);
                     //订单详情入库
-                    weCharOrdeDetailMapper.insert(weCharOrdeDetail);
+                    int count =  weCharOrdeDetailMapper.insert(weCharOrdeDetail);
                 }
             }
         }
-        //扣库存(调用商品服务)
-        List<DecreaseStockInput> decreaseStockInputList = orderDTO.getOrderDetailList().stream()
-                .map(e -> new DecreaseStockInput(e.getProductid(), e.getNum()))
-                .collect(Collectors.toList());
-        productClient.decreaseStock(decreaseStockInputList);
-
         //订单入库
         WeCharOrder orderMaster = new WeCharOrder();
         orderDTO.setOrderno(orderId);
         BeanUtils.copyProperties(orderDTO, orderMaster);
-        System.out.println(orderDTO.getOpenid()+"=========="+orderMaster.getOpenid());
         orderMaster.setInvoicetime(new Date());
+        orderMaster.setOrderstate(OrderStatusEnum.DFINISHED.getCode());
         orderMaster.setOrderno(orderId);
         orderMaster.setTotal(orderAmoutSum);
         weCharOrderMapper.insert(orderMaster);
-        webSocket.sendMessage(orderDTO.getOrderno());
+
+
+        DecreaseStockInputReceiver decreaseStockInputReceiver = new DecreaseStockInputReceiver();
+        List<DecreaseStockInput> decreaseStockInputList = orderDTO.getOrderDetailList().stream()
+                .map(e -> new DecreaseStockInput(e.getProductid(), e.getNum()))
+                .collect(Collectors.toList());
+        decreaseStockInputReceiver.setDecreaseStockInput(decreaseStockInputList);
+        decreaseStockInputReceiver.setOrderId(orderId);
+                try {
+            rabbitOrderSender.sendOrder(decreaseStockInputReceiver);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new OrderException(ResultEnum.PEODUCT_STOCK_EMPTY);
+        }
+
         return orderDTO;
     }
-
     /**
      * 买家查询订单列表
      * @param buyerOpenid
