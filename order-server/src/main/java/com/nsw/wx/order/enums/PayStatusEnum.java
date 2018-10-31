@@ -3,11 +3,11 @@ package com.nsw.wx.order.enums;
 import lombok.Getter;
 
 /**
- * 张维维
- * 2018-10-20 16:18
+ * Created by 廖师兄
+ * 2017-12-10 16:20
  */
 @Getter
-public enum PayStatusEnum implements CodeEnum {
+public enum PayStatusEnum {
     WAIT(0, "等待支付"),
     SUCCESS(1, "支付成功"),
     ;
@@ -18,7 +18,5 @@ public enum PayStatusEnum implements CodeEnum {
     PayStatusEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
-    } public static void main(String[] args) {
-        System.out.println("sss");
     }
 }

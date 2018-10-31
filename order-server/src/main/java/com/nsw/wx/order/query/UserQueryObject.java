@@ -37,9 +37,7 @@ public class UserQueryObject extends QueryObject {
 		}
 		return null;
 	}
-	public static void main(String[] args) {
-		System.out.println("sss");
-	}
+
 	public String getUsername() {
 		return username;
 	}

@@ -1,6 +1,7 @@
 package com.nsw.wx.order.converter;
 
-import com.nsw.wx.order.dto.OrderDTO;
+import com.nsw.wx.order.com.nsw.wx.order.dto.OrderDTO;
+//import com.nsw.wx.order.dto.OrderDTO;
 import com.nsw.wx.order.pojo.WeCharOrder;
 import org.springframework.beans.BeanUtils;
 
@@ -24,8 +25,5 @@ public class OrderMaster2OrderDTOConverter {
         return orderMasterList.stream().map(e ->
                 convert(e)
         ).collect(Collectors.toList());
-    }
-    public static void main(String[] args) {
-        System.out.println("sss");
     }
 }

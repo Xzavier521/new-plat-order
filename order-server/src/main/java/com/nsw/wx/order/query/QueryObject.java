@@ -27,7 +27,5 @@ public class QueryObject {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	public static void main(String[] args) {
-		System.out.println("sss");
-	}
+
 }
