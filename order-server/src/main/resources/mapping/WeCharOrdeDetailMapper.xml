@@ -16,7 +16,7 @@
     <result column="AttributeKeyValue" property="attributekeyvalue" jdbcType="VARCHAR" />
     <result column="Enable" property="enable" jdbcType="BIT" />
     <result column="InputTime" property="inputtime" jdbcType="TIMESTAMP" />
-    <result column="OrderID" property="orderid" jdbcType="VARCHAR" />
+    <result column="OrderID" property="orderid" jdbcType="INTEGER" />
     <result column="Integral" property="integral" jdbcType="INTEGER" />
     <result column="CartType" property="carttype" jdbcType="VARCHAR" />
     <result column="SkuID" property="skuid" jdbcType="INTEGER" />
@@ -98,7 +98,7 @@
         Status = #{status,jdbcType=INTEGER},
       </if>
     </set>
-    where OID = #{oid,jdbcType=INTEGER}
+      where OID = #{oid,jdbcType=INTEGER}
   </update>
 
 
@@ -110,14 +110,14 @@
       ShortDesc, Attribute, AttributeKeyValue, 
       Enable, InputTime, OrderID, 
       Integral, CartType, SkuID, 
-      GroupBuyPrice,status)
+      GroupBuyPrice)
     values (#{userid,jdbcType=INTEGER}, #{oid,jdbcType=VARCHAR},
       #{productid,jdbcType=INTEGER}, #{productname,jdbcType=VARCHAR}, #{productprice,jdbcType=DECIMAL}, 
       #{userprice,jdbcType=DECIMAL}, #{num,jdbcType=INTEGER}, #{pricesum,jdbcType=DECIMAL}, 
       #{shortdesc,jdbcType=VARCHAR}, #{attribute,jdbcType=VARCHAR}, #{attributekeyvalue,jdbcType=VARCHAR}, 
       #{enable,jdbcType=BIT}, #{inputtime,jdbcType=TIMESTAMP}, #{orderid,jdbcType=INTEGER}, 
       #{integral,jdbcType=INTEGER}, #{carttype,jdbcType=VARCHAR}, #{skuid,jdbcType=INTEGER}, 
-      #{groupbuyprice,jdbcType=DECIMAL},#{status})
+      #{groupbuyprice,jdbcType=DECIMAL})
   </insert>
 
   <select id="finaAll" parameterType="com.nsw.wx.order.pojo.WeCharOrdeDetail" resultMap="BaseResultMap">
@@ -128,8 +128,12 @@
     where OID = #{OID,jdbcType=VARCHAR}
   </delete>
 
-
-  <select id="findByOrderno" parameterType="String" resultMap="BaseResultMap">
-    select * from tbWeCharOrdeDetail where oid = #{orderno}
+  <select id="selectoid" resultMap="BaseResultMap" parameterType="java.util.List">
+    select * from tbWeCharOrdeDetail where OID IN
+    <foreach collection="list" index="index" item="orderno" open="(" separator="," close=")">
+      #{orderno}
+    </foreach>
   </select>
+
+
 </mapper>
