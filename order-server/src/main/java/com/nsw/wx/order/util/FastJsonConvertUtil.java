@@ -138,5 +138,7 @@ public class FastJsonConvertUtil {
 			e.printStackTrace();
 			return null;
 		}
+	} public static void main(String[] args) {
+		System.out.println("sss");
 	}
 }

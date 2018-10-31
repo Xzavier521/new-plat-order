@@ -143,6 +143,9 @@ public class OrderDTO  implements  Serializable  {
 
     private BigDecimal couponpreferential;  //优惠券优惠
 
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
     private BigDecimal defaultfreight;  //默认的运费
 
     /** 支付状态, 默认为0未支付. */

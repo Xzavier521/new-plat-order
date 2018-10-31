@@ -86,7 +86,9 @@ public class OrderMq implements Serializable {
     private Integer invoicetype;    //发票类型
 
     private String invoicetel;  //发票电话
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
     private String invoiceaddress;  //发票地址
 
     private String invoicecontact;  // 发票联系

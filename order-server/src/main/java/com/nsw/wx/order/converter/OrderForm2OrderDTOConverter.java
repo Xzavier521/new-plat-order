@@ -41,4 +41,7 @@ public class OrderForm2OrderDTOConverter {
 
         return orderDTO;
     }
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 }

@@ -1,10 +1,7 @@
 package com.nsw.wx.order.message;
 
 import com.nsw.wx.order.dto.OrderDTO;
-import com.nsw.wx.order.pojo.WeCharOrdeDetail;
-import common.DecreaseStockInput;
-import common.WeChatProductOutput;
-import lombok.Data;
+import com.nsw.wx.order.common.WeChatProductOutput;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,5 +25,7 @@ public class OrderMessage  implements Serializable {
 
     public OrderMessage() {
 
+    } public static void main(String[] args) {
+        System.out.println("sss");
     }
 }

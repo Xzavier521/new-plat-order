@@ -55,7 +55,9 @@ public class SellerOrderController {
        }
         return ResultVOUtil.success();
     }
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
     //订单列表
     @GetMapping("/list")
     public Object list(HttpServletResponse response,@RequestParam(value = "page") Integer page,
@@ -83,6 +85,10 @@ public class SellerOrderController {
         int count = (int) orderService.cancel(orderId);
         return ResultVOUtil.success();
     }
+
+
+
+
 }
 
 

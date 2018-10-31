@@ -33,7 +33,9 @@ public class SampleController {
     public ResultVO<String> home() {
         return ResultVOUtil.success("Hello，world");
     }
-    
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 //    @RequestMapping("/error")
 //    @ResponseBody
 //    public Result<String> error() {

@@ -15,6 +15,9 @@ import java.util.List;
  */
 
 public interface BuyerOrderService {
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
     /**
      * 创建订单
      * @param orderDTO

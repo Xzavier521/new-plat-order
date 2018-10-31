@@ -18,7 +18,8 @@ public enum ResultEnum {
     PRODUCT_EMPTY(8,"商品信息信为空"),
     PEODUCT_STOCK_EMPTY(9,"存库不足"),
 
-    TOO_MANY_PROPLE(10,"人太多了")
+    TOO_MANY_PROPLE(10,"人太多了"),
+    REDIS_STOCK_ERROR(11,"redis库存异常")
 
     ;
 
@@ -29,5 +30,7 @@ public enum ResultEnum {
     ResultEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
+    } public static void main(String[] args) {
+        System.out.println("sss");
     }
 }

@@ -222,5 +222,7 @@ public class RedisService {
 			 jedis.close();
 		 }
 	}
-
+	public static void main(String[] args) {
+		System.out.println("sss");
+	}
 }

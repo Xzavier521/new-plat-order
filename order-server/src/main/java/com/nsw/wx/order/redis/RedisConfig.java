@@ -55,4 +55,7 @@ public class RedisConfig {
 	public void setPoolMaxWait(int poolMaxWait) {
 		this.poolMaxWait = poolMaxWait;
 	}
+	public static void main(String[] args) {
+		System.out.println("sss");
+	}
 }

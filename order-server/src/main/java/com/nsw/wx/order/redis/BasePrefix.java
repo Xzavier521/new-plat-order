@@ -22,6 +22,8 @@ public abstract class BasePrefix implements KeyPrefix{
 	public String getPrefix() {
 		String className = getClass().getSimpleName();
 		return className+":" + prefix;
+	} public static void main(String[] args) {
+		System.out.println("sss");
 	}
 
 }

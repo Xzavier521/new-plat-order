@@ -60,6 +60,8 @@ public class RabbitReceiver {
 		}
 		Long deliveryTag = (Long)headers.get(AmqpHeaders.DELIVERY_TAG);
 		channel.basicAck(deliveryTag, false);
+	} public static void main(String[] args) {
+		System.out.println("sss");
 	}
 
 }

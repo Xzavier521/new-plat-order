@@ -41,7 +41,9 @@ public class WeCharOrder {
     private Integer paystate;   //支付状态
 
     private Integer deliverystate;  //交货状态
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
     private String fullname;    //全名
 
     private String phone;   //电话

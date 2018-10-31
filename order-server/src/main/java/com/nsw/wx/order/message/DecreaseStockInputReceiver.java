@@ -1,6 +1,6 @@
 package com.nsw.wx.order.message;
 
-import common.DecreaseStockInput;
+import com.nsw.wx.order.common.DecreaseStockInput;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,4 +16,7 @@ import java.util.List;
 public class DecreaseStockInputReceiver implements Serializable {
     private List<DecreaseStockInput> decreaseStockInput;
     private String orderId;
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 }

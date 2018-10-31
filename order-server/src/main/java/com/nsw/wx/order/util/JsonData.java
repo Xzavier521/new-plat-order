@@ -33,6 +33,8 @@ public class JsonData implements Serializable {
 		this.code = code;
 		this.data = data;
 
+	} public static void main(String[] args) {
+		System.out.println("sss");
 	}
 //	public JsonData(Integer code, Object data, String msg) {
 //		this.code = code;

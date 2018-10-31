@@ -34,6 +34,9 @@ import java.util.Map;
 @RequestMapping("/order/buyer")
 @Slf4j
 public class BuyerOrderController {
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
     @Autowired
     private BuyerOrderService buyerOrderService;
     /**
@@ -85,7 +88,7 @@ public class BuyerOrderController {
         return ResultVOUtil.success(orderDTOList,count);
     }
     //订单详情
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId) {
        return ResultVOUtil.success(buyerOrderService.findOne(openid, orderId));

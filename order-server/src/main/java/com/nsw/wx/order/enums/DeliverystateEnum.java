@@ -22,5 +22,7 @@ public enum  DeliverystateEnum implements CodeEnum{
         this.code = code;
         this.message = message;
     }
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 }

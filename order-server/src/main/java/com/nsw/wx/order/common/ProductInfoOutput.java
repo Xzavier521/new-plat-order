@@ -1,4 +1,4 @@
-package common;
+package com.nsw.wx.order.common;
 
 import lombok.Data;
 
@@ -12,7 +12,9 @@ import java.math.BigDecimal;
 @Data
 public class ProductInfoOutput   implements Serializable {
 
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 
     private String productId;
 

@@ -62,5 +62,7 @@ public interface WeCharOrderMapper {
  */
 
 int updateOrderSta(WeCharOrder weCharOrder);
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 }

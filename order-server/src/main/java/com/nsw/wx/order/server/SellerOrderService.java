@@ -12,7 +12,9 @@ import java.util.List;
  *
  */
 public interface SellerOrderService {
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
     /**
      * 完结订单(只能卖家操作)
      * @param orderId
@@ -29,6 +31,7 @@ public interface SellerOrderService {
 
     /** 取消订单. */
     Object cancel(String orderId);
+
 
 
 }

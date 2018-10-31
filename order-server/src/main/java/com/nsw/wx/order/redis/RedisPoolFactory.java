@@ -24,5 +24,7 @@ public class RedisPoolFactory {
 				redisConfig.getTimeout()*1000, redisConfig.getPassword(), 0);
 		return jp;
 	}
-	
+	public static void main(String[] args) {
+		System.out.println("sss");
+	}
 }

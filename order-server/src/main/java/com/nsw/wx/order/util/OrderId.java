@@ -30,5 +30,6 @@ public class OrderId extends Thread{
             orderNo += orderNum;;
             return orderNo+"";
         }
+
     }
 

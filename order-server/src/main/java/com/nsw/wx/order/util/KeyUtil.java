@@ -18,4 +18,7 @@ public class KeyUtil {
 
         return System.currentTimeMillis() + String.valueOf(number);
     }
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 }

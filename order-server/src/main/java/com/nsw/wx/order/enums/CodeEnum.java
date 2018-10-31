@@ -6,4 +6,7 @@ package com.nsw.wx.order.enums;
  */
 public interface CodeEnum {
     Integer getCode();
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 }

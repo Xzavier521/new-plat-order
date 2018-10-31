@@ -38,6 +38,8 @@ public class OrderForm {
      * 购物车
      */
     @NotEmpty(message = "购物车不能为空")
-    private String items;
+    private String items; public static void main(String[] args) {
+        System.out.println("sss");
+    }
 
 }

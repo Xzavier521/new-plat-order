@@ -62,5 +62,7 @@ public class WeCharOrdeDetail implements Serializable {
     private Integer day; //天数
 
     private Integer status; //状态
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
 }

@@ -1,4 +1,4 @@
-package common;
+package com.nsw.wx.order.common;
 
 import lombok.Data;
 
@@ -13,7 +13,9 @@ import java.util.Date;
 @Data
 public class WeChatProductOutput implements  Serializable {
 
-
+    public static void main(String[] args) {
+        System.out.println("sss");
+    }
     private String id;//主键
 
     private Integer enterpriseid;//企业ID

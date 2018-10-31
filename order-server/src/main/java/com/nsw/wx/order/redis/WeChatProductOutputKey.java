@@ -12,5 +12,7 @@ public class WeChatProductOutputKey extends BasePrefix {
     public WeChatProductOutputKey(String prefix) {
         super(prefix);
     }
-    public static WeChatProductOutputKey getById = new WeChatProductOutputKey("id");
+    public static WeChatProductOutputKey getById = new WeChatProductOutputKey("id"); public static void main(String[] args) {
+        System.out.println("sss");
+    }
 }

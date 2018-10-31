@@ -15,7 +15,9 @@ import org.springframework.util.StringUtils;
  */
 @Component
 @Slf4j
-public class RedisLock {
+public class RedisLock { public static void main(String[] args) {
+    System.out.println("sss");
+}
     @Autowired
     private StringRedisTemplate redisTemplate;
 

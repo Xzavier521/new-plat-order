@@ -21,5 +21,7 @@ public enum OrderStatusEnum implements CodeEnum {
     OrderStatusEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
+    } public static void main(String[] args) {
+        System.out.println("sss");
     }
 }

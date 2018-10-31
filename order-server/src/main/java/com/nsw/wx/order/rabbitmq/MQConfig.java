@@ -20,7 +20,9 @@ public class MQConfig {
 	public static final String TOPIC_EXCHANGE = "topicExchage";
 	public static final String FANOUT_EXCHANGE = "fanoutxchage";
 	public static final String HEADERS_EXCHANGE = "headersExchage";
-
+	public static void main(String[] args) {
+		System.out.println("sss");
+	}
 //	/**
 //	 * Direct模式 交换机Exchange
 //	 * */
